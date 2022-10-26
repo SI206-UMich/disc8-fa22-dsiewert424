@@ -8,12 +8,25 @@ import unittest
 def getLink(soup):
     a_tag = soup.find("a", title= "List of American universities with Olympic medals")
     url = a_tag.get("href")
+
+    return "https://en.wikipedia.org" + url
     pass
 
 # Task 3: Get the details from the box titled "College/school founding". Get all the college/school names and the year they were
 # founded and organize the same into key-value pairs.
 def getAdmissionsInfo2019(soup):
 
+    table_tag = soup.find('table', class_="toccolours") 
+    tr_list = table_tag.find_all('tr')
+    a = {}
+
+    for tr_tag in tr_list[1:]:
+        td_list = tr_tag.find_all('td')
+        school_name = td_list[0].text.strip()
+        found_year = td_list[1].text.strip()
+        a[school_name] = found_year
+
+    return a
     pass
 
 
